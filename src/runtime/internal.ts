@@ -414,11 +414,11 @@ export function detectBrowserLanguage<Context extends NuxtApp = NuxtApp>(
     }
   }
 
-  if (mode === 'ssg_setup' && finalLocale) {
+  //if (mode === 'ssg_setup' && finalLocale) {
     return { locale: finalLocale, stat: true, from: localeFrom }
-  }
+  //}
 
-  return { locale: '', stat: false, reason: 'not_found_match' }
+  //return { locale: '', stat: false, reason: 'not_found_match' }
 }
 
 export function getHost() {
