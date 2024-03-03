@@ -24,7 +24,7 @@ jobs:
     name: Lint on Node.js ${{ matrix.node-version }}
     steps:
       - name: Checkout codes
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Enable corepack
         run: corepack enable
@@ -52,7 +52,7 @@ jobs:
     name: Build on Node.js ${{ matrix.node-version }}
     steps:
       - name: Checkout codes
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Enable corepack
         run: corepack enable
@@ -88,7 +88,7 @@ jobs:
     name: Test on Node.js ${{ matrix.node-version }}
     steps:
       - name: Checkout codes
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Enable corepack
         run: corepack enable
@@ -144,7 +144,7 @@ jobs:
         os: [ubuntu-latest]
     steps:
       - name: Checkout codes
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Enable corepack
         run: corepack enable
