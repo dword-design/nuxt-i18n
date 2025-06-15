@@ -1,0 +1,9 @@
+{
+  "depcheckConfig": {
+    "ignoreMatches": [
+      "playwright",
+      "playwright-chromium"
+    ]
+  },
+  "name": "@dword-design/nuxt-module"
+}
