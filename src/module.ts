@@ -55,7 +55,7 @@ export default defineNuxtModule({
       ...(options.baseUrl && { baseUrl: options.baseUrl }),
     });
 
-    addPlugin(resolver.resolve('./plugin.ts'), { append: true });
+    addPlugin(resolver.resolve('./plugin'), { append: true });
     await installModule(packageName`@dword-design/nuxt-locale-link`);
   },
 });
