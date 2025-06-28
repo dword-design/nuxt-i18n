@@ -43,7 +43,7 @@
     "endent": "npm:@dword-design/endent@^1.4.1",
     "execa": "^9.6.0",
     "get-port": "^7.1.0",
-    "nuxt-dev-ready": "^3.0.0",
+    "nuxt-dev-ready": "^4.0.0",
     "output-files": "^2.0.32",
     "playwright": "^1.53.0",
     "playwright-chromium": "^1.53.0",
