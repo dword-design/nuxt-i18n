@@ -44,7 +44,7 @@
     "execa": "^9.6.0",
     "get-port": "^7.1.0",
     "nuxt-dev-ready": "^3.0.0",
-    "output-files": "^2.0.32",
+    "output-files": "^3.0.0",
     "playwright": "^1.53.0",
     "playwright-chromium": "^1.53.0",
     "tree-kill-promise": "^3.0.14"
