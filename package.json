@@ -31,7 +31,7 @@
   "dependencies": {
     "@dword-design/nuxt-locale-link": "^1.0.0",
     "@nuxt/kit": "^3.17.5",
-    "@nuxtjs/i18n": "^9.5.5",
+    "@nuxtjs/i18n": "^10.0.0",
     "depcheck-package-name": "^3.0.1",
     "globby": "^14.1.0"
   },
