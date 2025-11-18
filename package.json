@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@dword-design/base": "^13.0.7",
-    "@dword-design/base-config-nuxt-module": "^2.0.1",
+    "@dword-design/base-config-nuxt-module": "^3.0.0",
     "@playwright/test": "^1.53.0",
     "axios": "^1.10.0",
     "endent": "npm:@dword-design/endent@^1.4.1",
