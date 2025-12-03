@@ -376,7 +376,6 @@ test('i18n: works', async ({ page }, testInfo) => {
     cwd,
     env: { PORT: port },
     reject: false,
-    stderr: 'inherit',
   });
 
   try {
