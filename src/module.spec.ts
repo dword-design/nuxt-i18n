@@ -11,14 +11,14 @@ test('i18n: browser language changed', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
-    'nuxt.config.ts':
-      "export default defineNuxtConfig({ modules: ['../../src'] });",
-    'pages/index.vue': endent`
+    'app/pages/index.vue': endent`
       <template>
         <div />
       </template>
     `,
+    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
+    'nuxt.config.ts':
+      "export default defineNuxtConfig({ modules: ['../../src'] });",
   });
 
   const port = await getPort();
@@ -51,7 +51,7 @@ test('i18n: browser language changed', async ({}, testInfo) => {
 
     expect(deResponseUrl).toEqual(`http://localhost:${port}/de`);
   } finally {
-    await kill(nuxt.pid);
+    await kill(nuxt.pid!);
   }
 });
 
@@ -60,9 +60,7 @@ test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
   const port = await getPort();
 
   await outputFiles(cwd, {
-    i18n: { 'en.json': JSON.stringify({ foo: 'Hello world' }) },
-    'nuxt.config.ts': `export default defineNuxtConfig({ modules: [['../../src', { baseUrl: 'http://localhost:${port}' }]] });`,
-    pages: {
+    'app/pages': {
       'foo.vue': endent`
         <template>
           <div />
@@ -74,6 +72,8 @@ test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
         </template>
       `,
     },
+    i18n: { 'en.json': JSON.stringify({ foo: 'Hello world' }) },
+    'nuxt.config.ts': `export default defineNuxtConfig({ modules: [['../../src', { baseUrl: 'http://localhost:${port}' }]] });`,
   });
 
   const nuxt = execaCommand('nuxt dev', {
@@ -99,7 +99,7 @@ test('i18n: change page, meta up-to-date', async ({ page }, testInfo) => {
       `http://localhost:${port}/foo`,
     );
   } finally {
-    await kill(nuxt.pid);
+    await kill(nuxt.pid!);
   }
 });
 
@@ -107,6 +107,16 @@ test('i18n: middleware', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
+    app: {
+      'middleware/foo.ts': 'export default () => {}',
+      'nuxt.config.ts':
+        "export default defineNuxtConfig({ modules: ['../../src'] });",
+      'pages/index.vue': endent`
+        <template>
+          <div class="foo">Hello world</div>
+        </template>
+      `,
+    },
     'config.ts': endent`
       export default {
         router: {
@@ -118,14 +128,6 @@ test('i18n: middleware', async ({ page }, testInfo) => {
       'de.json': JSON.stringify({}, undefined, 2),
       'en.json': JSON.stringify({}, undefined, 2),
     },
-    'middleware/foo.ts': 'export default () => {}',
-    'nuxt.config.ts':
-      "export default defineNuxtConfig({ modules: ['../../src'] });",
-    'pages/index.vue': endent`
-      <template>
-        <div class="foo">Hello world</div>
-      </template>
-    `,
   });
 
   const port = await getPort();
@@ -142,7 +144,7 @@ test('i18n: middleware', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}`);
     await expect(page.locator('.foo')).toHaveText('Hello world');
   } finally {
-    await kill(nuxt.pid);
+    await kill(nuxt.pid!);
   }
 });
 
@@ -150,14 +152,14 @@ test('i18n: root with prefix', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
-    'nuxt.config.ts':
-      "export default defineNuxtConfig({ modules: ['../../src'] });",
-    'pages/index.vue': endent`
+    'app/pages/index.vue': endent`
       <template>
         <div />
       </template>
     `,
+    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
+    'nuxt.config.ts':
+      "export default defineNuxtConfig({ modules: ['../../src'] });",
   });
 
   const port = await getPort();
@@ -174,7 +176,7 @@ test('i18n: root with prefix', async ({ page }, testInfo) => {
     await page.goto(`http://localhost:${port}/de`);
     expect(page.url()).toEqual(`http://localhost:${port}/de`);
   } finally {
-    await kill(nuxt.pid);
+    await kill(nuxt.pid!);
   }
 });
 
@@ -182,14 +184,14 @@ test('i18n: root without prefix', async ({ page }, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
-    'nuxt.config.ts':
-      "export default defineNuxtConfig({ modules: ['../../src'] });",
-    'pages/index.vue': endent`
+    'app/pages/index.vue': endent`
       <template>
         <div />
       </template>
     `,
+    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
+    'nuxt.config.ts':
+      "export default defineNuxtConfig({ modules: ['../../src'] });",
   });
 
   const port = await getPort();
@@ -215,7 +217,7 @@ test('i18n: root without prefix', async ({ page }, testInfo) => {
     expect(responseUrl).toEqual(`http://localhost:${port}/de`);
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'de' });
   } finally {
-    await kill(nuxt.pid);
+    await kill(nuxt.pid!);
   }
 });
 
@@ -223,14 +225,14 @@ test('i18n: route with prefix', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
-    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
-    'nuxt.config.ts':
-      "export default defineNuxtConfig({ modules: ['../../src'] });",
-    'pages/foo.vue': endent`
+    'app/pages/foo.vue': endent`
       <template>
         <div />
       </template>
     `,
+    i18n: { 'de.json': JSON.stringify({}), 'en.json': JSON.stringify({}) },
+    'nuxt.config.ts':
+      "export default defineNuxtConfig({ modules: ['../../src'] });",
   });
 
   const port = await getPort();
@@ -255,7 +257,7 @@ test('i18n: route with prefix', async ({}, testInfo) => {
 
     expect(responseUrl).toEqual(`http://localhost:${port}/de/foo`);
   } finally {
-    await kill(nuxt.pid);
+    await kill(nuxt.pid!);
   }
 });
 
@@ -295,7 +297,7 @@ test('i18n: route without prefix', async ({}, testInfo) => {
 
     expect(responseUrl).toEqual(`http://localhost:${port}/de/foo`);
   } finally {
-    await kill(nuxt.pid);
+    await kill(nuxt.pid!);
   }
 });
 
@@ -341,7 +343,7 @@ test('i18n: single locale', async ({ page }, testInfo) => {
       expect(link).toHaveAttribute('href', '/bar'),
     ]);
   } finally {
-    await kill(nuxt.pid);
+    await kill(nuxt.pid!);
   }
 });
 
@@ -416,6 +418,6 @@ test('i18n: works', async ({ page }, testInfo) => {
     await expect(foo).toHaveText('Hello world');
     await expect(html).toHaveAttribute('style', 'background:red');
   } finally {
-    await kill(nuxt.pid);
+    await kill(nuxt.pid!);
   }
 });

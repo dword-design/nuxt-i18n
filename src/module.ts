@@ -14,13 +14,13 @@ const resolver = createResolver(import.meta.url);
 export default defineNuxtModule({
   setup: async (options, nuxt) => {
     const filenames = await globby('*.json', {
-      cwd: P.join(nuxt.options.srcDir, 'i18n'),
+      cwd: P.join(nuxt.options.rootDir, 'i18n'),
     });
 
     const locales = filenames.map(filename => P.basename(filename, '.json'));
     const defaultLocale = locales.includes('en') ? 'en' : locales[0];
 
-    if (locales.length === 0) {
+    if (locales.length === 0 && !nuxt.options._prepare) {
       return;
     }
 
@@ -31,7 +31,7 @@ export default defineNuxtModule({
      */
     nuxt.hook('i18n:registerModule', register =>
       register({
-        langDir: P.join(nuxt.options.srcDir, 'i18n'), // Set to '.' when passed directly as inline module options
+        langDir: P.join(nuxt.options.rootDir, 'i18n'), // Set to '.' when passed directly as inline module options
         locales: locales.map(locale => ({
           code: locale,
           file: `${locale}.json`,
